@@ -157,6 +157,60 @@
 
   body {
     background-color: var(--color-background);
+    background-image: var(--gradient-page);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    font-feature-settings: "ss01" on, "cv01" on;
+  }
+
+  button,
+  select {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .dashboard-card {
+    border: 1px solid var(--color-border);
+    background: color-mix(in oklab, var(--color-card) 88%, transparent);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(18px);
+  }
+
+  .lift-on-hover {
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  .lift-on-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lifted);
+    border-color: color-mix(in oklab, var(--color-primary) 38%, var(--color-border));
+  }
+
+  .animate-dashboard-in {
+    animation: dashboard-in 520ms ease both;
+  }
+}
+
+@keyframes dashboard-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
