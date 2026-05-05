@@ -32,10 +32,10 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Hiking A/B Test Dashboard" },
+      { title: "Hiking A/A Test Dashboard" },
       {
         name: "description",
-        content: "Interactive analytics dashboard for a hiking mobile app A/B testing study.",
+        content: "Interactive analytics dashboard for a hiking mobile app A/A testing study.",
       },
     ],
   }),
@@ -54,19 +54,22 @@ type StudyRow = {
   firstTap: "Routes" | "Map" | "Alerts";
   timeOnTask: number;
   usability: number;
+  quitTime: number; // Seconds into the task when they quit or completed
+  quitPage: "Search" | "Filter" | "Route Detail" | "Checkout" | "Success";
+  lastAction: "Back click" | "Looping" | "Error" | "Conversion" | "UI Stalling";
 };
 
 const studyRows: StudyRow[] = [
-  { id: "P01", group: "A1", name: "Yasmine Trabelsi", age: 28, city: "Tunis", persona: "Cautious planner", hikeFrequency: "4x/mo", phase: "Phase 1", firstTap: "Routes", timeOnTask: 142, usability: 5 },
-  { id: "P02", group: "A1", name: "Karim Ayari", age: 35, city: "Sfax", persona: "Experienced organiser", hikeFrequency: "6x/mo", phase: "Phase 2", firstTap: "Routes", timeOnTask: 118, usability: 6 },
-  { id: "P03", group: "A1", name: "Rayen Meherzi", age: 23, city: "Gobaa", persona: "Impulsive adventurer", hikeFrequency: "3x/mo", phase: "Phase 2", firstTap: "Map", timeOnTask: 92, usability: 4 },
-  { id: "P04", group: "A1", name: "Lina B.", age: 31, city: "Tunis", persona: "Cautious planner", hikeFrequency: "2x/mo", phase: "Phase 1", firstTap: "Routes", timeOnTask: 160, usability: 5 },
-  { id: "P05", group: "A1", name: "Nabil H.", age: 40, city: "Bizerte", persona: "Experienced organiser", hikeFrequency: "5x/mo", phase: "Phase 2", firstTap: "Routes", timeOnTask: 109, usability: 6 },
-  { id: "P06", group: "A2", name: "Sarra M.", age: 26, city: "Nabeul", persona: "Cautious planner", hikeFrequency: "2x/mo", phase: "Phase 1", firstTap: "Routes", timeOnTask: 155, usability: 5 },
-  { id: "P07", group: "A2", name: "Amir K.", age: 33, city: "Sfax", persona: "Experienced organiser", hikeFrequency: "5x/mo", phase: "Phase 2", firstTap: "Routes", timeOnTask: 124, usability: 6 },
-  { id: "P08", group: "A2", name: "Tarek Z.", age: 22, city: "Sousse", persona: "Impulsive adventurer", hikeFrequency: "4x/mo", phase: "Phase 3", firstTap: "Routes", timeOnTask: 88, usability: 3 },
-  { id: "P09", group: "A2", name: "Mariem F.", age: 29, city: "Tunis", persona: "Cautious planner", hikeFrequency: "3x/mo", phase: "Phase 1", firstTap: "Map", timeOnTask: 171, usability: 5 },
-  { id: "P10", group: "A2", name: "Bilel R.", age: 38, city: "Monastir", persona: "Experienced organiser", hikeFrequency: "6x/mo", phase: "Phase 2", firstTap: "Alerts", timeOnTask: 112, usability: 6 },
+  { id: "P01", group: "A1", name: "Yasmine Trabelsi", age: 28, city: "Tunis", persona: "Cautious planner", hikeFrequency: "4x/mo", phase: "Phase 1", firstTap: "Routes", timeOnTask: 142, usability: 5, quitTime: 142, quitPage: "Success", lastAction: "Conversion" },
+  { id: "P02", group: "A1", name: "Karim Ayari", age: 35, city: "Sfax", persona: "Experienced organiser", hikeFrequency: "6x/mo", phase: "Phase 2", firstTap: "Routes", timeOnTask: 118, usability: 6, quitTime: 118, quitPage: "Success", lastAction: "Conversion" },
+  { id: "P03", group: "A1", name: "Rayen Meherzi", age: 23, city: "Gobaa", persona: "Impulsive adventurer", hikeFrequency: "3x/mo", phase: "Phase 2", firstTap: "Map", timeOnTask: 92, usability: 4, quitTime: 45, quitPage: "Route Detail", lastAction: "Back click" },
+  { id: "P04", group: "A1", name: "Lina B.", age: 31, city: "Tunis", persona: "Cautious planner", hikeFrequency: "2x/mo", phase: "Phase 1", firstTap: "Routes", timeOnTask: 160, usability: 5, quitTime: 160, quitPage: "Success", lastAction: "Conversion" },
+  { id: "P05", group: "A1", name: "Nabil H.", age: 40, city: "Bizerte", persona: "Experienced organiser", hikeFrequency: "5x/mo", phase: "Phase 2", firstTap: "Routes", timeOnTask: 109, usability: 6, quitTime: 109, quitPage: "Success", lastAction: "Conversion" },
+  { id: "P06", group: "A2", name: "Sarra M.", age: 26, city: "Nabeul", persona: "Cautious planner", hikeFrequency: "2x/mo", phase: "Phase 1", firstTap: "Routes", timeOnTask: 155, usability: 5, quitTime: 70, quitPage: "Filter", lastAction: "UI Stalling" },
+  { id: "P07", group: "A2", name: "Amir K.", age: 33, city: "Sfax", persona: "Experienced organiser", hikeFrequency: "5x/mo", phase: "Phase 2", firstTap: "Routes", timeOnTask: 124, usability: 6, quitTime: 124, quitPage: "Success", lastAction: "Conversion" },
+  { id: "P08", group: "A2", name: "Tarek Z.", age: 22, city: "Sousse", persona: "Impulsive adventurer", hikeFrequency: "4x/mo", phase: "Phase 3", firstTap: "Routes", timeOnTask: 88, usability: 3, quitTime: 30, quitPage: "Search", lastAction: "Error" },
+  { id: "P09", group: "A2", name: "Mariem F.", age: 29, city: "Tunis", persona: "Cautious planner", hikeFrequency: "3x/mo", phase: "Phase 1", firstTap: "Map", timeOnTask: 171, usability: 5, quitTime: 171, quitPage: "Success", lastAction: "Conversion" },
+  { id: "P10", group: "A2", name: "Bilel R.", age: 38, city: "Monastir", persona: "Experienced organiser", hikeFrequency: "6x/mo", phase: "Phase 2", firstTap: "Alerts", timeOnTask: 112, usability: 6, quitTime: 112, quitPage: "Success", lastAction: "Conversion" },
 ];
 
 const chartColors = ["var(--color-primary)", "var(--color-accent)", "var(--color-warning)", "var(--color-info)", "var(--color-positive)"];
@@ -144,6 +147,9 @@ function Index() {
   const analytics = useMemo(() => {
     const avgUsability = average(filteredRows.map((row) => row.usability));
     const avgTaskTime = average(filteredRows.map((row) => row.timeOnTask));
+    const avgQuitTime = average(filteredRows.map((row) => row.quitTime));
+    const quitPageSeries = toSeries(countBy(filteredRows, (row) => row.quitPage));
+    const lastActionSeries = toSeries(countBy(filteredRows, (row) => row.lastAction));
     const firstTapSeries = toSeries(countBy(filteredRows, (row) => row.firstTap));
     const personaSeries = toSeries(countBy(filteredRows, (row) => row.persona));
     const citySeries = toSeries(countBy(filteredRows, (row) => row.city)).sort((a, b) => b.value - a.value);
@@ -154,6 +160,7 @@ function Index() {
         name,
         usability: Number(average(rows.map((row) => row.usability)).toFixed(1)),
         time: Math.round(average(rows.map((row) => row.timeOnTask))),
+        quitTime: Math.round(average(rows.map((row) => row.quitTime))),
         Routes: rows.filter((row) => row.firstTap === "Routes").length,
         Map: rows.filter((row) => row.firstTap === "Map").length,
         Alerts: rows.filter((row) => row.firstTap === "Alerts").length,
@@ -173,7 +180,20 @@ function Index() {
       { name: "30–34", value: filteredRows.filter((row) => row.age >= 30 && row.age <= 34).length },
       { name: "35–40", value: filteredRows.filter((row) => row.age >= 35 && row.age <= 40).length },
     ];
-    return { avgUsability, avgTaskTime, commonTap, firstTapSeries, personaSeries, citySeries, groupComparison, personaBehavior, ageDistribution };
+    return {
+      avgUsability,
+      avgTaskTime,
+      avgQuitTime,
+      commonTap,
+      firstTapSeries,
+      personaSeries,
+      citySeries,
+      groupComparison,
+      personaBehavior,
+      ageDistribution,
+      quitPageSeries,
+      lastActionSeries,
+    };
   }, [filteredRows]);
 
   const winner = analytics.groupComparison[0].usability >= analytics.groupComparison[1].usability ? "A1" : "A2";
@@ -189,7 +209,7 @@ function Index() {
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1 text-sm font-medium text-muted-foreground shadow-soft">
                 <Compass className="size-4 text-primary" /> Hiking mobile app study
               </div>
-              <h1 className="text-4xl font-semibold leading-tight text-foreground md:text-6xl">A/B testing analytics dashboard</h1>
+              <h1 className="text-4xl font-semibold leading-tight text-foreground md:text-6xl">A/A testing analytics dashboard</h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
                 Product performance, tap intent, personas, demographics, and efficiency signals from {studyRows.length} moderated hiking-app sessions.
               </p>
@@ -204,14 +224,14 @@ function Index() {
 
         <section className="mb-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <KpiCard icon={Activity} label="Avg usability" value={analytics.avgUsability.toFixed(1)} detail="Score out of 6" />
-          <KpiCard icon={Timer} label="Avg task time" value={formatSeconds(analytics.avgTaskTime)} detail="Across filtered users" />
+          <KpiCard icon={Timer} label="Avg task time" value={formatSeconds(analytics.avgTaskTime)} detail="Journey completion" />
+          <KpiCard icon={Timer} label="Avg quit time" value={formatSeconds(analytics.avgQuitTime)} detail="Time before drop-off" />
           <KpiCard icon={MousePointerClick} label="Top first tap" value={analytics.commonTap} detail="Dominant entry point" />
-          <KpiCard icon={Users} label="Personas" value={analytics.personaSeries.length.toString()} detail={`${filteredRows.length} users visible`} />
         </section>
 
-        <section className="mb-7 grid gap-5 xl:grid-cols-[1.25fr_0.75fr]">
+        <section className="mb-7 grid gap-5 xl:grid-cols-[1.25fr_1fr]">
           <ChartCard>
-            <SectionTitle icon={BarChart3} eyebrow="A/B testing" title={`Version ${winner} is leading on usability`} />
+            <SectionTitle icon={BarChart3} eyebrow="A/A testing" title={`Version ${winner} is leading on usability`} />
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={analytics.groupComparison} margin={{ left: 0, right: 12, top: 8, bottom: 0 }}>
@@ -223,23 +243,29 @@ function Index() {
                   <Legend />
                   <Bar yAxisId="left" dataKey="usability" name="Usability" radius={[10, 10, 0, 0]} fill="var(--color-primary)" />
                   <Line yAxisId="right" dataKey="time" name="Time on task" stroke="var(--color-accent)" strokeWidth={3} dot={{ r: 5 }} />
+                  <Line yAxisId="right" dataKey="quitTime" name="Quit time" stroke="var(--color-warning)" strokeWidth={3} strokeDasharray="5 5" dot={{ r: 5 }} />
                 </ComposedChart>
               </ResponsiveContainer>
             </div>
           </ChartCard>
           <ChartCard>
-            <SectionTitle icon={MousePointerClick} eyebrow="First tap" title="Entry feature split" />
-            <div className="h-72">
+            <SectionTitle icon={Activity} eyebrow="Drop-off analysis" title="Where and why users quit" />
+            <div className="grid h-72 grid-cols-2 gap-4">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={analytics.groupComparison} layout="vertical" margin={{ left: 8, right: 8 }}>
-                  <CartesianGrid stroke={gridColor} strokeDasharray="4 4" horizontal={false} />
-                  <XAxis type="number" stroke={axisColor} tickLine={false} axisLine={false} allowDecimals={false} />
-                  <YAxis type="category" dataKey="name" stroke={axisColor} tickLine={false} axisLine={false} />
+                <PieChart>
+                  <Pie data={analytics.quitPageSeries} dataKey="value" nameKey="name" innerRadius={40} outerRadius={60} paddingAngle={4}>
+                    {analytics.quitPageSeries.map((entry, index) => <Cell key={entry.name} fill={chartColors[index % chartColors.length]} />)}
+                  </Pie>
                   <Tooltip content={<ChartTooltip />} />
-                  <Legend />
-                  <Bar dataKey="Routes" stackId="tap" fill="var(--color-primary)" radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="Map" stackId="tap" fill="var(--color-accent)" />
-                  <Bar dataKey="Alerts" stackId="tap" fill="var(--color-warning)" radius={[0, 10, 10, 0]} />
+                  <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: "10px" }} />
+                </PieChart>
+              </ResponsiveContainer>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={analytics.lastActionSeries} layout="vertical" margin={{ left: -20 }}>
+                  <XAxis type="number" hide />
+                  <YAxis type="category" dataKey="name" stroke={axisColor} tickLine={false} axisLine={false} width={80} style={{ fontSize: "10px" }} />
+                  <Tooltip content={<ChartTooltip />} />
+                  <Bar dataKey="value" fill="var(--color-info)" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
