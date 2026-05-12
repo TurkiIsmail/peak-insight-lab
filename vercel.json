@@ -1,10 +1,7 @@
 {
-  "buildCommand": "bun install && bun run build",
+  "buildCommand": "bun run build",
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/((?!.*\\.[^/]+$).*)",
-      "destination": "/index.html"
-    }
-  ]
+  "devCommand": "bun run dev",
+  "installCommand": "bun install",
+  "framework": "react"
 }
