@@ -3,5 +3,5 @@
   "outputDirectory": "dist",
   "devCommand": "bun run dev",
   "installCommand": "bun install",
-  "framework": "react"
+  "framework": "vite"
 }
