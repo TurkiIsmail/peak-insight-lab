@@ -61,7 +61,7 @@ function LiveUserCard() {
         <div>
           <SectionTitle icon={Radio} eyebrow="Real-time" title="Users online right now" />
           <p className="mt-4 flex items-baseline gap-2">
-            <span className="text-5xl font-bold text-positive">14,250</span>
+            <span className="text-5xl font-bold text-positive">1320</span>
             <span className="text-lg text-muted-foreground">active users</span>
           </p>
         </div>

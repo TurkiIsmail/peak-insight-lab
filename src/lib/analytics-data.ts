@@ -145,13 +145,11 @@ export function generateReportSummary() {
 // User analytics data
 export function generateUserAnalyticsData() {
   const countries: CountryData[] = [
-    { country: "United States", code: "US", users: 34200, percentage: 28.5, avgSessionDuration: 312 },
-    { country: "Canada", code: "CA", users: 18900, percentage: 15.7, avgSessionDuration: 298 },
-    { country: "United Kingdom", code: "GB", users: 16450, percentage: 13.6, avgSessionDuration: 287 },
-    { country: "Australia", code: "AU", users: 12300, percentage: 10.2, avgSessionDuration: 325 },
-    { country: "Germany", code: "DE", users: 10200, percentage: 8.5, avgSessionDuration: 265 },
-    { country: "France", code: "FR", users: 8900, percentage: 7.4, avgSessionDuration: 276 },
-    { country: "Japan", code: "JP", users: 7850, percentage: 6.5, avgSessionDuration: 298 },
+    { country: "Tunisia", code: "TN", users: 85400, percentage: 70.8, avgSessionDuration: 325 },
+    { country: "Algeria", code: "DZ", users: 18900, percentage: 15.7, avgSessionDuration: 298 },
+    { country: "Morocco", code: "MA", users: 10200, percentage: 8.5, avgSessionDuration: 287 },
+    { country: "Libya", code: "LY", users: 3200, percentage: 2.7, avgSessionDuration: 245 },
+    { country: "Egypt", code: "EG", users: 2800, percentage: 2.3, avgSessionDuration: 276 },
   ];
 
   const devices: DeviceData[] = [
@@ -176,7 +174,7 @@ export function generateUserAnalyticsData() {
 
   const trafficSources: TrafficSource[] = [
     { source: "Direct", users: 34200, sessions: 52300, conversionRate: 8.2 },
-    { source: "Google Organic", users: 45600, sessions: 68900, conversionRate: 6.8 },
+    { source: "Google Tunisia", users: 45600, sessions: 68900, conversionRate: 6.8 },
     { source: "Facebook", users: 18900, sessions: 28450, conversionRate: 5.1 },
     { source: "Instagram", users: 12300, sessions: 18650, conversionRate: 4.2 },
     { source: "Email", users: 8450, sessions: 12300, conversionRate: 9.5 },
@@ -197,9 +195,9 @@ export function generateUserAnalyticsData() {
   }));
 
   return {
-    totalUsers: 120500,
+    totalUsers: 2000,
     activeUsers: 14250,
-    totalSessions: 185420,
+    totalSessions: 8420,
     peakHour: "14:00 - 15:00",
     peakDay: "Saturday",
     newVisitors: 67300,
@@ -219,14 +217,13 @@ export function generateUserAnalyticsData() {
 
 // Generate recent sessions
 export function generateRecentSessions(): UserSession[] {
-  const countries = ["US", "CA", "GB", "AU", "DE"];
   const devices = ["iPhone 15", "Samsung Galaxy S24", "iPad Pro", "MacBook Pro", "Dell XPS"];
   const browsers = ["Chrome", "Safari", "Firefox", "Edge"];
 
   return Array.from({ length: 15 }, (_, i) => ({
     sessionId: `session_${Date.now()}_${i}`,
     userId: `user_${Math.floor(Math.random() * 10000)}`,
-    country: countries[Math.floor(Math.random() * countries.length)],
+    country: "from TN",
     device: devices[Math.floor(Math.random() * devices.length)],
     browser: browsers[Math.floor(Math.random() * browsers.length)],
     duration: Math.floor(Math.random() * 1200 + 60),
